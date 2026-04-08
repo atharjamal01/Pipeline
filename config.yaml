@@ -1,0 +1,37 @@
+global:
+  input_base: "/scratch/mdatharj.sbb.iitmandi/Paper_1/data/metratranscriptomics/PE/samples/1"
+  output_base: "/scratch/mdatharj.sbb.iitmandi/Paper_1/output_b"
+  script_path: "/scratch/mdatharj.sbb.iitmandi/Paper_1/main_b.py"
+
+tools:
+  trimmomatic:
+    adapter_file: /scratch/mdatharj.sbb.iitmandi/Paper_1/preProcess_classify/Essentials/all_adapters.fa
+    threads: 12
+    other_params: "LEADING:14 TRAILING:0 SLIDINGWINDOW:4:20 MINLEN:40"
+
+  sortmerna:
+    db_dir: /scratch/mdatharj.sbb.iitmandi/Paper_1/preProcess_classify/Essentials/rRNA_databases/SILVA_138.2_combined_SSU_LSU_NR99.fasta
+    threads: 12
+
+  fastqc:
+    threads: 4
+
+  diamond:
+    db: /scratch/mdatharj.sbb.iitmandi/Paper_1/preProcess_classify/Essentials/viral2025_diamondDB.dmnd
+    threads: 12
+    evalue: 1e-5
+    max_targets: 1
+
+  multiqc:
+    output_dir: "/scratch/mdatharj.sbb.iitmandi/Paper_1/output_b"
+
+taxonomy:
+  sqlite_db: "/scratch/mdatharj.sbb.iitmandi/Paper_1/preProcess_classify/Essentials/prot_accession2taxid.db"
+  nodes_dmp: "/scratch/mdatharj.sbb.iitmandi/Paper_1/preProcess_classify/Essentials/nodes.dmp"
+  names_dmp: "/scratch/mdatharj.sbb.iitmandi/Paper_1/preProcess_classify/Essentials/names.dmp"
+
+params:
+  merge_tool: PEAR
+  keep_intermediate: true
+  log_level: INFO
+
